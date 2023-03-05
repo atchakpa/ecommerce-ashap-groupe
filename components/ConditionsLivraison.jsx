@@ -12,6 +12,7 @@ export default function ConditionsLivraison(){
       width='full'
       justifyContent='center'
       spacing={10}
+      mt={5}
     >
       <HStack
         color='white'
