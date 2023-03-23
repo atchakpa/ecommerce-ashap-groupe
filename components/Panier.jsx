@@ -17,6 +17,12 @@ export default function Panier(){
     setBagContent(liste)
   }
 
+  const editQuantite = (index, newQuantite) => {
+    const liste = Object.assign([], bagContent)
+    liste[index].quantite = newQuantite
+    setBagContent(liste)
+  }
+
   useEffect(() => {
     if (open) {
       bagLocalStorageContent = window.localStorage.getItem(params.BAG_KEY)
@@ -77,8 +83,8 @@ export default function Panier(){
                       <HStack spacing={5}>
                         <Image 
                           src={oneArticle.images[0]} 
-                          height={[45, 100]} 
-                          width={45, 100} 
+                          height={50} 
+                          width={50} 
                           rounded={10} 
                           bg='white'
                         />
@@ -104,15 +110,7 @@ export default function Panier(){
                               min={1}
                               bg='white'
                               width='80px'
-                              onChange={(val) => {
-                                const line = {
-                                  ...info.row.original,
-                                  quantite: Number(val.target.value)
-                                }
-                                service.replaceLine({
-                                  ...line
-                                }, info.row.index)
-                              }}
+                              onChange={(val) => editQuantite(index, Number(val))}
                             >
                               <NumberInputField rounded={5} />
                               <NumberInputStepper>

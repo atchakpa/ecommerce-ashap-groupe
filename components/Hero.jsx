@@ -3,8 +3,10 @@ import useToastCustum from '@/hooks/useToastCustum'
 import params from '@/params'
 import {HStack, Box, Text, Image, Button} from '@chakra-ui/react'
 import { useMemo } from 'react'
-import { Carousel } from 'react-responsive-carousel'
-import '../app/caroussel.css'
+
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 export default function Hero({
   products
@@ -28,90 +30,109 @@ export default function Hero({
     toast.toastSucces("Ajouter au panier avec succès")
     window.localStorage.setItem(params.BAG_KEY, JSON.stringify(bagContent))
   }
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  }
   return (
-    <HStack
-      bgImage='/images/fond_hero.jpg'
-      bgSize='cover'
-      position='relative'
-      justifyContent='center'
-      flexDirection={['column-reverse', 'row']}
-      height={['60vh', '80vh']}
-      spacing={[0, 10]}
-      py={[2, 24]}
-      px={[0, '15%']}
-      rounded={20}
-      mt={3}
-    >
-      <Box 
-        position='absolute' 
-        bgGradient={'linear(to-bl, blue.500, pink.500)'} 
-        height='full' 
-        width='full' 
-        opacity={0.9}
+    <>
+      <Box
+        bgImage='/images/fond_hero.jpg'
+        bgSize='cover'
+        position='relative'
+        justifyContent='center'
+        flexDirection={['column-reverse', 'row']}
+        height={['60vh', '80vh']}
+        spacing={[0, 10]}
+        py={[2, 24]}
+        px={[0, '15%']}
         rounded={20}
-      />
-      <Carousel
-        infiniteLoop
-        autoPlay
-        interval={2000}
+        mt={3}
       >
-        {
-          products.map((product) => {
-            return (
-              <HStack
-                key={product.idArticle}
-                flexDirection={['column-reverse', 'row']}
-              >
+        <Box 
+          position='absolute' 
+          bgGradient={'linear(to-bl, blue.500, pink.500)'} 
+          height='full' 
+          width='full' 
+          opacity={0.9}
+          rounded={20}
+          top={0}
+          left={0}
+        />
+        <Slider 
+          dots
+          infinite
+          speed={1000}
+          slidesToShow={1}
+          slidesToScroll={1}
+          autoplay
+          autoplaySpeed={3000}
+        >
+          {
+            products.map((product) => {
+              return (
                 <Box
-                  lineHeight='none'
-                  // position='absolute'
-                  zIndex={10}
-                  minWidth='300px'
-                  mr={[0, -14]}
+                  key={product.idArticle}
                 >
-      
-                  <Text
-                    fontWeight='black'
-                    fontSize={['xl', '3xl']}
-                    color='white'
-                    p={[8, 0]}
+                  <HStack
+                    flexDirection={['column-reverse', 'row']}
                   >
-                    {product.nomArticle}
-                  </Text>
-                  <Text
-                    // fontWeight='black'
-                    fontSize={['xs', 'xl']}
-                    color='white'
-                  >
-                    {format.numberToString(product.prixVente)}
-                  </Text>
-                  <Button
-                    mt={3}
-                    variant='ghost'
-                    colorScheme='gray'
-                    color='white'
-                    _hover={{bg: `${params.THEME_COLOR}.500`}}
-                    onClick={() => addToBag(product)}
-                  >
-                    Ajouter au panier
-                  </Button>
-                </Box>
-      
-                <Image 
-                  zIndex={999} 
-                  src={product.images[0]} 
-                  width={[300, 400]} 
-                  height={[400, 600]} 
-                  p={[0, 10, 20]} 
-                  objectFit='contain' 
-                />
-              </HStack>
+                    <Box
+                      lineHeight='none'
+                      // position='absolute'
+                      zIndex={10}
+                      minWidth='300px'
+                    >
+              
+                      <Text
+                        fontWeight='bold'
+                        fontSize={['xl', '5xl']}
+                        color='white'
+                        p={[8, 0]}
+                      >
+                        {product.nomArticle}
+                      </Text>
+                      <Text
+                        // fontWeight='black'
+                        fontSize={['xs', 'xl']}
+                        color='white'
+                      >
+                        {format.numberToString(product.prixVente)}
+                      </Text>
+                      <Button
+                        mt={3}
+                        variant='solid'
+                        colorScheme={params.THEME_COLOR}
+                        // color='white'
+                        // _hover={{bg: `${params.THEME_COLOR}.500`}}
+                        rounded={5}
+                        onClick={() => addToBag(product)}
+                      >
+                        Ajouter au panier
+                      </Button>
+                    </Box>
+              
+                    <Image 
+                      zIndex={999} 
+                      src={product.images[0]} 
+                      width={[250, 500]} 
+                      height={[250, 500]} 
+                      // p={[0, 10, 20]} 
+                      objectFit='contain'
+                      rounded={10}
+                    />
+                </HStack>
+
+              </Box>
             )
-          })
-        }
-      </Carousel>
-      
-    </HStack>
+                })
+              }
+
+        </Slider>
+      </Box>
+    </>
   )
 }

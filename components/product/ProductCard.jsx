@@ -178,7 +178,21 @@ export default function ProductCard({
           // bg={`gray.500`}
           lineHeight='shorter'
         >
-          <Text fontWeight='bold' fontSize='md'>{format.numberToString(product.prixVente)}</Text>
+          <HStack>
+            <Text fontWeight='bold' fontSize='md'>{format.numberToString(product.prixVente)}</Text>
+            {
+              product.holdPrixVente > 0 && product.holdPrixVente > product.prixVente && (
+                <Text 
+                  fontWeight='bold' 
+                  fontSize='sm' 
+                  textDecoration='line-through'
+                  color='red.600'
+                >
+                  {format.numberToString(product.prixVente)}
+                </Text>
+              )
+            }
+          </HStack>
           <Text fontSize='xs' noOfLines={1} title={product.nomArticle} color='gray.600'>{product.nomArticle}</Text>
         </Box>
         
