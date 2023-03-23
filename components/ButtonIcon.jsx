@@ -12,7 +12,8 @@ export default function ButtonIcon ({
   variant,
   size = 'sm',
   isLoading,
-  isDisabled
+  isDisabled,
+  shadow='none'
 }) {
   return (
     <Tooltip
@@ -28,6 +29,7 @@ export default function ButtonIcon ({
         size={size}
         isLoading={isLoading}
         isDisabled={isDisabled}
+        shadow={shadow}
       />
     </Tooltip>
   )

@@ -1,12 +1,19 @@
 import data from '@/data'
 import _const from '@/helpers/_const'
+import useListeArticle from '@/hooks/useListeArticle'
 import {Stack, HStack, Text, Box, Center, Wrap} from '@chakra-ui/react'
 import ProductCard from './product/ProductCard'
 
 export default function NouvelArrivage({
   title='Nouvel arrivage',
-  subTitle='spécialement pour vous'
+  subTitle='profite vite du stock disponible'
 }){
+
+  const {data: listeArticle} = useListeArticle('?isNew=true&isPublished=true&')
+
+  if (listeArticle.length <= 0) {
+    return null
+  }
 
   return (
     <Center
@@ -32,7 +39,7 @@ export default function NouvelArrivage({
         spacing={10}
       >
         {
-          data.map((product) => {
+          listeArticle.map((product) => {
             return (
               <ProductCard
                   key={product.idArticle}

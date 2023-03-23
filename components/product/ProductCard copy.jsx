@@ -2,8 +2,6 @@ import format from '@/helpers/format'
 import useToastCustum from '@/hooks/useToastCustum'
 import params from '@/params'
 import {Box, Image, Text, Button, Collapse, useBoolean, HStack, SlideFade, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Tag} from '@chakra-ui/react'
-import { BsEye } from 'react-icons/bs'
-import ButtonIcon from '../ButtonIcon'
 import HeaderTitle from '../HeaderTitle'
 
 export default function ProductCard({
@@ -13,10 +11,7 @@ export default function ProductCard({
     courteDescription,
     descriptionArticle,
     prixVente,
-    images,
-    isNew,
-    isAvailableCommand,
-    avanceSurCommane
+    images
   }
 }){
   const toast = useToastCustum()
@@ -107,34 +102,14 @@ export default function ProductCard({
         onMouseMove={() => setHover.on()}
         onMouseLeave={() => setHover.off()}
       >
-        {
-          product.isNew && (
-            <Tag
-              position='absolute'
-              variant='solid'
-              top={2}
-              left={2}
-              colorScheme='green'
-              size='sm'
-            >
-              Nouveau
-            </Tag>
-          )
-        }
-        {
-          product.isAvailableCommand && (
-            <Tag
-              position='absolute'
-              variant='solid'
-              top={2}
-              left={2}
-              colorScheme='orange'
-              size='sm'
-            >
-              Disponible sur commande
-            </Tag>
-          )
-        }
+        <Tag
+          position='absolute'
+          variant='solid'
+          top={2}
+          left={2}
+          colorScheme='green'
+          size='sm'
+        >Nouveau</Tag>
         <Box
           overflow='hidden'
           px={5}
@@ -143,24 +118,23 @@ export default function ProductCard({
             src={product.images[0]} 
             height={350}
             objectFit='contain' 
-            _hover={{shadow: 'lg'}}
             // _hover={{transform: 'scale(1.1)'}}
             // transition='100ms ease-in-out'
             bg='gray.200'
-            mb={2}
             rounded={10}
           />
         
         </Box>
-        <HStack position='absolute' top={300} width='full' px={10}>
-          <ButtonIcon
-            icon={BsEye}
-            label='Apercu'
-            action={() => setOpenModal.on()}
-            variant='solid'
-            colorScheme='gray'
-            shadow='lg'
-          />
+        <SlideFade direction='bottom' in={hover} >
+          <HStack position='absolute' top={300} width='full' px={5}>
+            <Button
+              variant='solid'
+              shadow='md'
+              flex={1}
+              onClick={() => setOpenModal.on()}
+            >
+              Apercu
+            </Button>
             <Button
               colorScheme={params.THEME_COLOR}
               variant='solid'
@@ -171,7 +145,8 @@ export default function ProductCard({
               Ajouter au panier
             </Button>
           </HStack>
-      
+        
+        </SlideFade>
         <Box 
           p={3}
           // bg={`${params.THEME_COLOR}.500`}

@@ -1,7 +1,7 @@
 'use client'
 
 import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider, Box } from '@chakra-ui/react'
+import { ChakraProvider, Box, Container } from '@chakra-ui/react'
 import theme from '@/helpers/theme'
 import { QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -32,9 +32,12 @@ export default function RootLayout ({
                 position='relative'
                 // overflowX='hidden'
               >
-                <Banniere />
                 <NavBar />
-                {children}
+                <Container
+                  minWidth={['full', '70vw']}
+                >
+                  {children}
+                </Container>
                 <PiedDePage />
               </Box>
             </ChakraProvider>

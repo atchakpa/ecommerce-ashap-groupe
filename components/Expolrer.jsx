@@ -1,9 +1,11 @@
 import data from '@/data'
 import _const from '@/helpers/_const'
+import useListeCategorieArticle from '@/hooks/useListeCategorieArticle'
 import {Tabs, TabList, Tab, TabPanels, TabPanel, Center, Wrap, Box, Text} from '@chakra-ui/react'
 import ProductCard from './product/ProductCard'
 
 export default function Explorer() {
+  const {data: listeCategorie} = useListeCategorieArticle('?display=true')
   return (
     <Center 
       mt={5} 
@@ -12,7 +14,6 @@ export default function Explorer() {
       bg='gray.50'
       rounded={12}
       mx={['2%', '15%']}
-      
     >
       <Box
           fontWeight='bold'
@@ -25,27 +26,27 @@ export default function Explorer() {
             Découvrez toutes les catégories
           </Text>
         </Box>
+
       <Tabs
         variant='solid-rounded'
+        _active={{rounded: 10}}
         colorScheme={_const.THEME_COLOR}
         mt={5}
+        rounded={10}
       >
         <TabList
-          bg='gray.100'
-          px={3}
-          py={2}
-          rounded='full'
+          // bg='gray.100'
+          rounded={10}
           justifyContent='center'
           width='auto'
         >
-          <Tab 
-            _active={{
-              bg: `${_const.THEME_COLOR}.500`
-            }}
-          >Desktop</Tab>
-          <Tab>Laptop</Tab>
-          <Tab>Accessoire</Tab>
-          <Tab>Électroménager</Tab>
+          {
+            listeCategorie.map((oneCategorie) => {
+              return (
+                <Tab>{oneCategorie.nomCategorieArticle}</Tab>
+              )
+            })
+          }
         </TabList>
 
         <TabPanels>
