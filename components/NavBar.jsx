@@ -12,7 +12,7 @@ export default function NavBar() {
       shadow='md'
       position='sticky'
       top={0}
-      p={3}
+      py={3}
       px={[2, 24]}
       bg='white'
       zIndex={9999}

@@ -19,6 +19,10 @@ export default function RootLayout ({
 }) {
   return (
     <html lang='fr'>
+      <head>
+        <title>ASHAB GROUP</title>
+        <link rel="icon" type="image/png" href="/images/logo.png" />
+      </head>
       <body>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
@@ -26,8 +30,9 @@ export default function RootLayout ({
             <ChakraProvider theme={theme}>
               <Box
                 position='relative'
+                // overflowX='hidden'
               >
-                <Banniere/>
+                <Banniere />
                 <NavBar />
                 {children}
                 <PiedDePage />

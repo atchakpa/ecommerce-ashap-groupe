@@ -6,7 +6,7 @@ export default function Banniere(){
 
   return (
     <HStack
-      bg={`${_const.THEME_COLOR}.500`}
+      bgGradient='linear(to-r, pink.500, blue.500, pink.500)'
       p={3}
       justifyContent='space-between'
     >
@@ -14,7 +14,8 @@ export default function Banniere(){
           textAlign='center'
           color='white'
           fontWeight='bold'
-          fontSize='2xl'
+          fontSize={['xs', '2xl']}
+          lineHeight='shorter'
         >
           ASHAB GROUP
         </Text>
@@ -22,6 +23,8 @@ export default function Banniere(){
           textAlign='center'
           color='white'
           fontWeight='bold'
+          fontSize={['xs', '2xl']}
+          lineHeight='shorter'
         >
           Choisissez la qualité
         </Text>

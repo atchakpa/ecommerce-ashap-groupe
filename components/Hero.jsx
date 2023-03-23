@@ -1,11 +1,13 @@
-import _const from '@/helpers/_const'
+import params from '@/params'
 import {HStack, Box, Text, Image, Button} from '@chakra-ui/react'
+import { useMemo } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import '../app/caroussel.css'
 
 export default function Hero({
   products
 }){
+  
 
   return (
     <HStack
@@ -14,7 +16,7 @@ export default function Hero({
       position='relative'
       justifyContent='center'
       flexDirection={['column-reverse', 'row']}
-      height={['60vh', '80vh']}
+      height={['90vh', '80vh']}
       spacing={[0, 10]}
       py={[2, 24]}
       px={[0, '15%']}
@@ -36,7 +38,7 @@ export default function Hero({
             return (
               <HStack
                 key={product.idArticle}
-                
+                flexDirection={['column-reverse', 'row']}
               >
                 <Box
                   lineHeight='none'
@@ -46,8 +48,9 @@ export default function Hero({
       
                   <Text
                     fontWeight='black'
-                    fontSize={['3xl', '5xl']}
+                    fontSize={['xl', '5xl']}
                     color='white'
+                    p={[8, 0]}
                   >
                     {product.nomArticle}
                   </Text>
@@ -68,7 +71,7 @@ export default function Hero({
                   </Button>
                 </Box>
       
-                <Image zIndex={999} src={product.images} width={[300, 400]} objectFit='cover' />
+                <Image zIndex={999} src={product.images[0]} width={[300, 400]} p={[0, 10, 20]} objectFit='cover' />
               </HStack>
             )
           })

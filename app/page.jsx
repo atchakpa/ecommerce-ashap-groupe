@@ -5,13 +5,15 @@ import {Text} from '@chakra-ui/react'
 import data from '@/data'
 import NouvelArrivage from '@/components/NouvelArrivage'
 import ConditionsLivraison from '@/components/ConditionsLivraison'
+import useListeArticle from '@/hooks/useListeArticle'
 
 
 
 export default function Home() {
+  const {data: listeArticleEnVedette} = useListeArticle('?enVedette=true&isPublished=true')
   return (
     <>
-      <Hero products={data} />
+      <Hero products={listeArticleEnVedette} />
       <NouvelArrivage/>
       <Explorer/>
 
