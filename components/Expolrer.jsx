@@ -1,41 +1,40 @@
 import data from '@/data'
 import _const from '@/helpers/_const'
 import useListeCategorieArticle from '@/hooks/useListeCategorieArticle'
-import {Tabs, TabList, Tab, TabPanels, TabPanel, Center, Wrap, Box, Text} from '@chakra-ui/react'
+import { Tabs, TabList, Tab, TabPanels, TabPanel, Center, Wrap, Box, Text } from '@chakra-ui/react'
 import ProductCard from './product/ProductCard'
 
-export default function Explorer() {
-  const {data: listeCategorie} = useListeCategorieArticle('?display=true')
+export default function Explorer () {
+  const { data: listeCategorie } = useListeCategorieArticle('?display=true')
   return (
-    <Center 
-      mt={5} 
-      p={24} 
+    <Center
+      mt={5}
+      p={24}
       flexDirection='column'
       bg='gray.50'
       rounded={12}
-      mx={['2%', '15%']}
+      // mx={['0%', '15%']}
     >
       <Box
-          fontWeight='bold'
-          fontSize='xl'
-          lineHeight='shorter'
-          textAlign='center'
-        >
-          <Text fontSize='4xl'>Explorer</Text>
-          <Text color={`${_const.THEME_COLOR}.500`} fontSize='sm'>
-            Découvrez toutes les catégories
-          </Text>
-        </Box>
+        fontWeight='bold'
+        fontSize='xl'
+        lineHeight='shorter'
+        textAlign='center'
+      >
+        <Text fontSize='4xl'>Explorer</Text>
+        <Text color={`${_const.THEME_COLOR}.500`} fontSize='sm'>
+          Découvrez toutes les catégories
+        </Text>
+      </Box>
 
       <Tabs
         variant='solid-rounded'
-        _active={{rounded: 10}}
+        _active={{ rounded: 10 }}
         colorScheme={_const.THEME_COLOR}
         mt={5}
         rounded={10}
       >
         <TabList
-          // bg='gray.100'
           rounded={10}
           justifyContent='center'
           width='auto'
@@ -43,7 +42,7 @@ export default function Explorer() {
           {
             listeCategorie.map((oneCategorie) => {
               return (
-                <Tab>{oneCategorie.nomCategorieArticle}</Tab>
+                <Tab key={oneCategorie.idCategorieArticle}> {oneCategorie.nomCategorieArticle} </Tab>
               )
             })
           }
@@ -65,12 +64,12 @@ export default function Explorer() {
                   )
                 })
               }
-            
+
             </Wrap>
           </TabPanel>
         </TabPanels>
       </Tabs>
-    
+
     </Center>
   )
 }

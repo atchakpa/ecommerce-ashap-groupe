@@ -1,9 +1,8 @@
-import {HStack, Stack, Image, Text, Icon} from '@chakra-ui/react'
+import { HStack, Stack, Image, Text, Icon } from '@chakra-ui/react'
 import { BsTelephone } from 'react-icons/bs'
-import {MdOutlineLocationOn} from 'react-icons/md'
+import { MdOutlineLocationOn } from 'react-icons/md'
 
-export default function PiedDePage() {
-
+export default function PiedDePage () {
   return (
     <HStack
       bg='gray.200'
@@ -13,7 +12,7 @@ export default function PiedDePage() {
       flexDirection={['column', 'row']}
     >
       <Stack>
-        <Image src='/images/logo.png' height={100} />
+        <Image src='/images/logo.png' height={[75, 100]} />
       </Stack>
       <Stack
         lineHeight='shorter'
@@ -45,11 +44,12 @@ export default function PiedDePage() {
         <Text
           color='gray.600'
           fontSize='sm'
-        >229 </Text>
+        >229
+        </Text>
       </Stack>
 
       <Stack>
-        <Image src='/images/paiement_accepte.jpeg' height={6}  />
+        <Image src='/images/paiement_accepte.jpeg' height={6} />
       </Stack>
     </HStack>
   )

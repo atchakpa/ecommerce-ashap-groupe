@@ -1,9 +1,9 @@
-import http from "@/helpers/http"
-import params from "@/params"
+import http from '@/helpers/http'
+import params from '@/params'
 import { useQuery } from 'react-query'
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
-export default function useListeCategorieArticle(paramsRequest = '') {
+export default function useListeCategorieArticle (paramsRequest = '') {
   const url = [`/categorie-article/ecommerce${paramsRequest}`]
   const apiUrl = process.env.NODE_ENV === 'development' ? `${params.DEV_API_URL}` : `${params.API_URL}`
   const { data, refetch, isFetching } = useQuery({

@@ -3,13 +3,13 @@ import params from '@/params'
 import { useQuery } from 'react-query'
 import { useEffect } from 'react'
 
-export default function useListeArticle (paramsRequest = '') {
-  const url = [`/article/ecommerce${paramsRequest}`]
+export default function useListeCategorieWithArticle (paramsRequest = '') {
+  const url = [`/categorie-article/ecommerce/${paramsRequest}`]
   const apiUrl = process.env.NODE_ENV === 'development' ? `${params.DEV_API_URL}` : `${params.API_URL}`
   const { data, refetch, isFetching } = useQuery({
     queryKey: url,
     queryFn: () => http.get(url[0]),
-    initialData: [],
+    initialData: { imageCategorieArticle: '', article: [] },
     enabled: true
   })
 
@@ -30,12 +30,16 @@ export default function useListeArticle (paramsRequest = '') {
   }, [params])
 
   return {
-    data: data.map((oneArticle) => {
-      return {
-        ...oneArticle,
-        images: transformDataImage(oneArticle)
-      }
-    }),
+    data: {
+      ...data,
+      imageCategorieArticle: `${apiUrl}${data.imageCategorieArticle}`,
+      article: data.article.map((oneArticle) => {
+        return {
+          ...oneArticle,
+          images: transformDataImage(oneArticle)
+        }
+      })
+    },
     refetch,
     isFetching
   }

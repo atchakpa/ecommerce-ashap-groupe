@@ -1,20 +1,19 @@
 import format from '@/helpers/format'
 import useToastCustum from '@/hooks/useToastCustum'
 import params from '@/params'
-import {HStack, Box, Text, Image, Button} from '@chakra-ui/react'
-import { useMemo } from 'react'
+import { HStack, Box, Text, Image, Button } from '@chakra-ui/react'
 
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-export default function Hero({
+export default function Hero ({
   products
-}){
+}) {
   const toast = useToastCustum()
   const addToBag = (product) => {
     const bagLocalStorageContent = window.localStorage.getItem(params.BAG_KEY)
-    const bagContent = bagLocalStorageContent === null ? [] :  JSON.parse(bagLocalStorageContent)
+    const bagContent = bagLocalStorageContent === null ? [] : JSON.parse(bagLocalStorageContent)
     const searchIndex = bagContent.findIndex(el => el.idArticle === product.idArticle)
     if (searchIndex <= -1) {
       bagContent.push({
@@ -27,42 +26,37 @@ export default function Hero({
     } else {
       bagContent[searchIndex].quantite += 1
     }
-    toast.toastSucces("Ajouter au panier avec succès")
+    toast.toastSucces('Ajouter au panier avec succès')
     window.localStorage.setItem(params.BAG_KEY, JSON.stringify(bagContent))
   }
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  }
+
   return (
     <>
       <Box
         bgImage='/images/fond_hero.jpg'
         bgSize='cover'
+        bgPosition='center'
         position='relative'
         justifyContent='center'
         flexDirection={['column-reverse', 'row']}
-        height={['60vh', '80vh']}
+        height={['70vh', '80vh']}
         spacing={[0, 10]}
-        py={[2, 24]}
+        py={[10, 24]}
         px={[0, '15%']}
         rounded={20}
         mt={3}
       >
-        <Box 
-          position='absolute' 
-          bgGradient={'linear(to-bl, blue.500, pink.500)'} 
-          height='full' 
-          width='full' 
+        <Box
+          position='absolute'
+          bgGradient='linear(to-bl, blue.500, pink.500)'
+          height='full'
+          width='full'
           opacity={0.9}
           rounded={20}
           top={0}
           left={0}
         />
-        <Slider 
+        <Slider
           dots
           infinite
           speed={1000}
@@ -79,25 +73,29 @@ export default function Hero({
                 >
                   <HStack
                     flexDirection={['column-reverse', 'row']}
+                    spacing={[0, 3]}
                   >
                     <Box
                       lineHeight='none'
-                      // position='absolute'
                       zIndex={10}
                       minWidth='300px'
+                      display='flex'
+                      flexDirection='column'
+                      overflow='hidden'
                     >
-              
+
                       <Text
                         fontWeight='bold'
                         fontSize={['xl', '5xl']}
                         color='white'
-                        p={[8, 0]}
+                        p={[2, 0]}
+                        textAlign={['center', 'left']}
                       >
                         {product.nomArticle}
                       </Text>
                       <Text
-                        // fontWeight='black'
-                        fontSize={['xs', 'xl']}
+                        fontSize={['sm', 'xl']}
+                        textAlign={['center', 'left']}
                         color='white'
                       >
                         {format.numberToString(product.prixVente)}
@@ -110,26 +108,28 @@ export default function Hero({
                         // _hover={{bg: `${params.THEME_COLOR}.500`}}
                         rounded={5}
                         onClick={() => addToBag(product)}
+                        width='auto'
+                        alignSelf={['center', 'flex-start']}
                       >
                         Ajouter au panier
                       </Button>
                     </Box>
-              
-                    <Image 
-                      zIndex={999} 
-                      src={product.images[0]} 
-                      width={[250, 500]} 
-                      height={[250, 500]} 
-                      // p={[0, 10, 20]} 
+
+                    <Image
+                      zIndex={999}
+                      src={product.images[0]}
+                      width={[250, 500]}
+                      height={[250, 500]}
+                      // p={[0, 10, 20]}
                       objectFit='contain'
                       rounded={10}
                     />
-                </HStack>
+                  </HStack>
 
-              </Box>
-            )
-                })
-              }
+                </Box>
+              )
+            })
+          }
 
         </Slider>
       </Box>

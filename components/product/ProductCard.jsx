@@ -1,31 +1,31 @@
 import format from '@/helpers/format'
 import useToastCustum from '@/hooks/useToastCustum'
 import params from '@/params'
-import {Box, Image, Text, Button, Collapse, useBoolean, HStack, SlideFade, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Tag} from '@chakra-ui/react'
+import { Box, Image, Text, Button, useBoolean, HStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, Tag } from '@chakra-ui/react'
 import { BsEye } from 'react-icons/bs'
 import ButtonIcon from '../ButtonIcon'
 import HeaderTitle from '../HeaderTitle'
 
-export default function ProductCard({
-  product= {
-    idArticle,
-    nomArticle,
-    courteDescription,
-    descriptionArticle,
-    prixVente,
-    images,
-    isNew,
-    isAvailableCommand,
-    avanceSurCommane
+export default function ProductCard ({
+  product = {
+    idArticle: '',
+    nomArticle: '',
+    courteDescription: '',
+    descriptionArticle: '',
+    prixVente: 0,
+    images: [],
+    isNew: false,
+    isAvailableCommand: false,
+    avanceSurCommane: 0
   }
-}){
+}) {
   const toast = useToastCustum()
   const [hover, setHover] = useBoolean()
   const [openModal, setOpenModal] = useBoolean()
 
   const addToBag = () => {
     const bagLocalStorageContent = window.localStorage.getItem(params.BAG_KEY)
-    const bagContent = bagLocalStorageContent === null ? [] :  JSON.parse(bagLocalStorageContent)
+    const bagContent = bagLocalStorageContent === null ? [] : JSON.parse(bagLocalStorageContent)
     const searchIndex = bagContent.findIndex(el => el.idArticle === product.idArticle)
     if (searchIndex <= -1) {
       bagContent.push({
@@ -38,7 +38,7 @@ export default function ProductCard({
     } else {
       bagContent[searchIndex].quantite += 1
     }
-    toast.toastSucces("Ajouter au panier avec succès")
+    toast.toastSucces('Ajouter au panier avec succès')
     window.localStorage.setItem(params.BAG_KEY, JSON.stringify(bagContent))
   }
 
@@ -50,9 +50,9 @@ export default function ProductCard({
         onClose={() => setOpenModal.off()}
         closeOnOverlayClick={false}
         isCentered
-        size='4xl'
+        size={['full', '4xl']}
       >
-        <ModalOverlay/>
+        <ModalOverlay />
         <ModalContent>
           <ModalHeader>
             <HeaderTitle
@@ -67,18 +67,18 @@ export default function ProductCard({
               spacing={10}
               alignItems='flex-start'
             >
-              <Image 
-                src={product.images[0]} 
-                height={300} 
-                width={300} 
-                objectFit='cover' 
+              <Image
+                src={product.images[0]}
+                height={300}
+                width={300}
+                objectFit='cover'
                 flex={2}
               />
 
               <Box
                 flex={5}
               >
-                <Text 
+                <Text
                   fontSize='xl'
                   lineHeight='shorter'
                   fontWeight='bold'
@@ -90,7 +90,8 @@ export default function ProductCard({
                   colorScheme={params.THEME_COLOR}
                   mt={2}
                 >
-                  {format.numberToString(product.prixVente)}</Tag>
+                  {format.numberToString(product.prixVente)}
+                </Tag>
               </Box>
             </HStack>
           </ModalBody>
@@ -139,18 +140,18 @@ export default function ProductCard({
           overflow='hidden'
           px={5}
         >
-          <Image 
-            src={product.images[0]} 
+          <Image
+            src={product.images[0]}
             height={350}
-            objectFit='contain' 
-            _hover={{shadow: 'lg'}}
+            objectFit='contain'
+            _hover={{ shadow: 'lg' }}
             // _hover={{transform: 'scale(1.1)'}}
             // transition='100ms ease-in-out'
             bg='gray.200'
             mb={2}
             rounded={10}
           />
-        
+
         </Box>
         <HStack position='absolute' top={300} width='full' px={10}>
           <ButtonIcon
@@ -161,18 +162,18 @@ export default function ProductCard({
             colorScheme='gray'
             shadow='lg'
           />
-            <Button
-              colorScheme={params.THEME_COLOR}
-              variant='solid'
-              shadow='md'
-              flex={1}
-              onClick={() => addToBag()}
-            >
-              Ajouter au panier
-            </Button>
-          </HStack>
-      
-        <Box 
+          <Button
+            colorScheme={params.THEME_COLOR}
+            variant='solid'
+            shadow='md'
+            flex={1}
+            onClick={() => addToBag()}
+          >
+            Ajouter au panier
+          </Button>
+        </HStack>
+
+        <Box
           p={3}
           // bg={`${params.THEME_COLOR}.500`}
           // bg={`gray.500`}
@@ -182,9 +183,9 @@ export default function ProductCard({
             <Text fontWeight='bold' fontSize='md'>{format.numberToString(product.prixVente)}</Text>
             {
               product.holdPrixVente > 0 && product.holdPrixVente > product.prixVente && (
-                <Text 
-                  fontWeight='bold' 
-                  fontSize='sm' 
+                <Text
+                  fontWeight='bold'
+                  fontSize='sm'
                   textDecoration='line-through'
                   color='red.600'
                 >
@@ -195,7 +196,7 @@ export default function ProductCard({
           </HStack>
           <Text fontSize='xs' noOfLines={1} title={product.nomArticle} color='gray.600'>{product.nomArticle}</Text>
         </Box>
-        
+
       </Box>
     </>
   )

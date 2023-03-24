@@ -21,7 +21,7 @@ export default function RootLayout ({
     <html lang='fr'>
       <head>
         <title>ASHAB GROUP</title>
-        <link rel="icon" type="image/png" href="/images/logo.png" />
+        <link rel='icon' type='image/png' href='/images/logo.png' />
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
@@ -34,7 +34,8 @@ export default function RootLayout ({
               >
                 <NavBar />
                 <Container
-                  minWidth={['full', '70vw']}
+                  minWidth={['auto', '70vw']}
+                  overflowX='hidden'
                 >
                   {children}
                 </Container>
