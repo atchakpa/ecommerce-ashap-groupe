@@ -1,8 +1,6 @@
-import data from '@/data'
-import _const from '@/helpers/_const'
 import useListeCategorieArticle from '@/hooks/useListeCategorieArticle'
-import { Tabs, TabList, Tab, TabPanels, TabPanel, Center, Wrap, Box, Text } from '@chakra-ui/react'
-import ProductCard from './product/ProductCard'
+import params from '@/params'
+import { Center, Wrap, Box, Text, Stack, Image } from '@chakra-ui/react'
 
 export default function Explorer () {
   const { data: listeCategorie } = useListeCategorieArticle('?display=true')
@@ -22,53 +20,43 @@ export default function Explorer () {
         textAlign='center'
       >
         <Text fontSize='4xl'>Explorer</Text>
-        <Text color={`${_const.THEME_COLOR}.500`} fontSize='sm'>
+        <Text color={`${params.THEME_COLOR}.500`} fontSize='sm'>
           Découvrez toutes les catégories
         </Text>
       </Box>
 
-      <Tabs
-        variant='solid-rounded'
-        _active={{ rounded: 10 }}
-        colorScheme={_const.THEME_COLOR}
+      <Wrap
         mt={5}
-        rounded={10}
       >
-        <TabList
-          rounded={10}
-          justifyContent='center'
-          width='auto'
-        >
-          {
+        {
             listeCategorie.map((oneCategorie) => {
               return (
-                <Tab key={oneCategorie.idCategorieArticle}> {oneCategorie.nomCategorieArticle} </Tab>
+                <Stack
+                  key={oneCategorie.idCategorieArticle}
+                  p={3}
+                  rounded={10}
+                  _hover={{ border: '2px', borderColor: `${params.THEME_COLOR}.500`, bg: 'white' }}
+                  cursor='pointer'
+                  transition='100ms ease-in-out'
+                >
+                  <Image
+                    src={oneCategorie.imageCategorieArticle}
+                    height={150}
+                    width={150}
+                  />
+                  <Text
+                    fontWeight='bold'
+                    fontSize='sm'
+                    textAlign='center'
+                  >
+
+                    {oneCategorie.nomCategorieArticle}
+                  </Text>
+                </Stack>
               )
             })
           }
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <Wrap
-              p={3}
-              spacing={10}
-            >
-              {
-                data.map((product) => {
-                  return (
-                    <ProductCard
-                      key={product.idArticle}
-                      product={product}
-                    />
-                  )
-                })
-              }
-
-            </Wrap>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      </Wrap>
 
     </Center>
   )

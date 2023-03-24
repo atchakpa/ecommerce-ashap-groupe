@@ -22,7 +22,7 @@ export default function CategorieArticle ({
           src={data.imageCategorieArticle}
           height={75}
           width={75}
-          objetcFit='contain'
+          o='contain'
         />
         <Box
           lineHeight='none'

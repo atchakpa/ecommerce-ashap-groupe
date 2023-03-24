@@ -1,7 +1,7 @@
 import useListeCategorieArticle from '@/hooks/useListeCategorieArticle'
 import params from '@/params'
 import { Link } from '@chakra-ui/next-js'
-import { HStack, Button, Image, Text, InputGroup, Input, InputRightElement, Icon, Box, Menu, MenuButton, MenuList, MenuItem, Hide, useBoolean, Drawer, DrawerBody, DrawerOverlay, DrawerHeader, DrawerFooter, DrawerContent } from '@chakra-ui/react'
+import { HStack, Button, Image, Text, InputGroup, Input, InputRightElement, Icon, Box, Menu, MenuButton, MenuList, MenuItem, Hide, useBoolean, Drawer, DrawerBody, DrawerOverlay, DrawerHeader, DrawerContent } from '@chakra-ui/react'
 import { useState } from 'react'
 import { BsGrid, BsJustifyLeft, BsSearch } from 'react-icons/bs'
 import { MdOutlineLocationOn } from 'react-icons/md'

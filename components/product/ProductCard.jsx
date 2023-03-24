@@ -2,6 +2,7 @@ import format from '@/helpers/format'
 import useToastCustum from '@/hooks/useToastCustum'
 import params from '@/params'
 import { Box, Image, Text, Button, useBoolean, HStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, Tag } from '@chakra-ui/react'
+import { useState } from 'react'
 import { BsEye } from 'react-icons/bs'
 import ButtonIcon from '../ButtonIcon'
 import HeaderTitle from '../HeaderTitle'
@@ -16,14 +17,16 @@ export default function ProductCard ({
     images: [],
     isNew: false,
     isAvailableCommand: false,
-    avanceSurCommane: 0
+    avanceSurCommane: 0,
+    tax: 'E'
   }
 }) {
   const toast = useToastCustum()
   const [hover, setHover] = useBoolean()
   const [openModal, setOpenModal] = useBoolean()
+  const [imageViewer, setImageViewer] = useState(product.images[0])
 
-  const addToBag = () => {
+  const addToBag = (qte = 1) => {
     const bagLocalStorageContent = window.localStorage.getItem(params.BAG_KEY)
     const bagContent = bagLocalStorageContent === null ? [] : JSON.parse(bagLocalStorageContent)
     const searchIndex = bagContent.findIndex(el => el.idArticle === product.idArticle)
@@ -31,12 +34,13 @@ export default function ProductCard ({
       bagContent.push({
         idArticle: product.idArticle,
         nomArticle: product.nomArticle,
-        quantite: 1,
+        quantite: qte,
         prixVente: product.prixVente,
-        images: product.images
+        images: product.images,
+        tax: product.taxMecef
       })
     } else {
-      bagContent[searchIndex].quantite += 1
+      bagContent[searchIndex].quantite = (bagContent[searchIndex].quantite + qte)
     }
     toast.toastSucces('Ajouter au panier avec succès')
     window.localStorage.setItem(params.BAG_KEY, JSON.stringify(bagContent))
@@ -56,44 +60,86 @@ export default function ProductCard ({
         <ModalContent>
           <ModalHeader>
             <HeaderTitle
-              title='Apercu'
-              subTitle='Apercu rapide'
+              title={product.nomArticle}
               divider
               onClose={() => setOpenModal.off()}
             />
           </ModalHeader>
           <ModalBody>
-            <HStack
+            <Box
+              display='flex'
+              flexDirection={['column', 'row']}
               spacing={10}
               alignItems='flex-start'
+              position='relative'
             >
-              <Image
-                src={product.images[0]}
-                height={300}
-                width={300}
-                objectFit='cover'
-                flex={2}
-              />
+              <Box
+                display='flex'
+                flexDirection={['column-reverse', 'row']}
+              >
+                <Box
+                  display='flex'
+                  flexDirection={['row', 'column']}
+                  justifyContent='flex-start'
+                  alignItems={['center', 'flex-start']}
+                  height='full'
+                >
+                  {
+                    product.images.map((oneImage) => {
+                      return (
+                        <Image
+                          key={oneImage}
+                          src={oneImage}
+                          height={35}
+                          width={35}
+                          rounded={5}
+                          cursor='pointer'
+                          _hover={{ shadow: 'lg' }}
+                          onClick={() => setImageViewer(oneImage)}
+                        />
+                      )
+                    })
+                  }
+                </Box>
+                <Image
+                  src={imageViewer}
+                  height={300}
+                  width={300}
+                />
+
+              </Box>
 
               <Box
                 flex={5}
+                pt={[5, 0]}
+                pl={[0, 10]}
               >
+                <Tag
+                  fontSize='xl'
+                  lineHeight='shorter'
+                  fontWeight='bold'
+                  colorScheme={params.THEME_COLOR}
+                >
+                  {format.numberToString(product.prixVente)}
+                </Tag>
                 <Text
                   fontSize='xl'
                   lineHeight='shorter'
                   fontWeight='bold'
                 >
-                  {product.nomArticle}
+                  {product.courteDescription}
                 </Text>
-                <Tag
-                  fontWeight='bold'
+
+                <Button
+                  onClick={() => addToBag()}
+                  variant='solid'
                   colorScheme={params.THEME_COLOR}
-                  mt={2}
+                  mt={3}
                 >
-                  {format.numberToString(product.prixVente)}
-                </Tag>
+                  Ajouter au panier
+                </Button>
               </Box>
-            </HStack>
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -8,7 +8,7 @@ export default function useToastCustum () {
       title: message,
       description: description || undefined,
       status: 'error',
-      position: _const.TOAST_POSITION,
+      position: params.TOAST_POSITION,
       isClosable: true
     }),
     toastSucces: (message, description) => toast({

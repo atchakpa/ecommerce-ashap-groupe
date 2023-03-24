@@ -40,9 +40,8 @@ export default function Hero ({
         justifyContent='center'
         flexDirection={['column-reverse', 'row']}
         height={['70vh', '80vh']}
-        spacing={[0, 10]}
-        py={[10, 24]}
-        px={[0, '15%']}
+        py={[10, 14]}
+        px={[0, '10%']}
         rounded={20}
         mt={3}
       >
@@ -78,15 +77,14 @@ export default function Hero ({
                     <Box
                       lineHeight='none'
                       zIndex={10}
-                      minWidth='300px'
+                      minWidth='100px'
                       display='flex'
                       flexDirection='column'
                       overflow='hidden'
                     >
-
                       <Text
                         fontWeight='bold'
-                        fontSize={['xl', '5xl']}
+                        fontSize={['xl', '3xl']}
                         color='white'
                         p={[2, 0]}
                         textAlign={['center', 'left']}
@@ -118,9 +116,8 @@ export default function Hero ({
                     <Image
                       zIndex={999}
                       src={product.images[0]}
-                      width={[250, 500]}
-                      height={[250, 500]}
-                      // p={[0, 10, 20]}
+                      width={[250, 400]}
+                      height={[250, 400]}
                       objectFit='contain'
                       rounded={10}
                     />

@@ -3,11 +3,11 @@ import useListeArticle from '@/hooks/useListeArticle'
 import { Stack, Text, Box, Center, Wrap } from '@chakra-ui/react'
 import ProductCard from './product/ProductCard'
 
-export default function NouvelArrivage ({
-  title = 'Nouvel arrivage',
-  subTitle = 'Profite vite du stock disponible'
+export default function Promotion ({
+  title = 'Solde',
+  subTitle = 'En ce moment, dépêche toi avant la fin'
 }) {
-  const { data: listeArticle } = useListeArticle('?isNew=true&isPublished=true&')
+  const { data: listeArticle } = useListeArticle('/en-promotion')
 
   if (listeArticle.length <= 0) {
     return null
