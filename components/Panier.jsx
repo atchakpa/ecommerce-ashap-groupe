@@ -6,11 +6,6 @@ import HeaderTitle from './HeaderTitle'
 import { useEffect, useMemo, useState } from 'react'
 import format from '@/helpers/format'
 import _ from 'lodash'
-import {
-  openKkiapayWidget,
-  addKkiapayListener,
-  removeKkiapayListener
-} from 'kkiapay'
 import http from '@/helpers/http'
 import useToastCustum from '@/hooks/useToastCustum'
 
@@ -71,7 +66,7 @@ export default function Panier () {
           }
         })
         console.log(rps)
-        declenchePaiement()
+        // declenchePaiement()
       })
       .catch((err) => {
         toast.toastErr(err.response.data.message)
@@ -94,16 +89,6 @@ export default function Panier () {
   const totalAPayer = useMemo(() => {
     return _.sumBy(bagContent, el => el.quantite * el.prixVente)
   }, [bagContent])
-
-  const declenchePaiement = () => {
-    openKkiapayWidget({
-      amount: 1,
-      api_key: 'bf8a23c7caf1eda07e2225ec25c67cd98dddd8bc',
-      sandbox: false,
-      email: 'randomgail@gmail.com',
-      phone: ''
-    })
-  }
 
   useEffect(() => {
     if (open) {
