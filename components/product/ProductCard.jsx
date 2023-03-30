@@ -123,9 +123,8 @@ export default function ProductCard ({
                   {format.numberToString(product.prixVente)}
                 </Tag>
                 <Text
-                  fontSize='xl'
+                  fontSize='sm'
                   lineHeight='shorter'
-                  fontWeight='bold'
                 >
                   {product.courteDescription}
                 </Text>
