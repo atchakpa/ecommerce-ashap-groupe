@@ -1,21 +1,19 @@
 import { extendTheme } from '@chakra-ui/react'
 
-import '@fontsource/montserrat/100.css'
-import '@fontsource/montserrat/200.css'
-import '@fontsource/montserrat/300.css'
-import '@fontsource/montserrat/400.css'
-import '@fontsource/montserrat/500.css'
-import '@fontsource/montserrat/600.css'
-import '@fontsource/montserrat/700.css'
-import '@fontsource/montserrat/800.css'
-import '@fontsource/montserrat/900.css'
+import '@fontsource/manrope/200.css'
+import '@fontsource/manrope/300.css'
+import '@fontsource/manrope/400.css'
+import '@fontsource/manrope/500.css'
+import '@fontsource/manrope/600.css'
+import '@fontsource/manrope/700.css'
+import '@fontsource/manrope/800.css'
 
 import _const from './_const'
 
 const themeConfig = {
   colors: {
     blue: {
-      '500': '#29aae1'
+      500: '#29aae1'
     }
   },
   components: {
@@ -75,8 +73,8 @@ const themeConfig = {
 
   },
   fonts: {
-    heading: "montserrat, sans-serif",
-    body: "montserrat, sans-serif"
+    heading: 'manrope, sans-serif',
+    body: 'manrope, sans-serif'
   }
 }
 
