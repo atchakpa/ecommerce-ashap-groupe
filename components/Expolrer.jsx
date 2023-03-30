@@ -1,5 +1,6 @@
 import useListeCategorieArticle from '@/hooks/useListeCategorieArticle'
 import params from '@/params'
+import { Link } from '@chakra-ui/next-js'
 import { Center, Wrap, Box, Text, Stack, Image } from '@chakra-ui/react'
 
 export default function Explorer () {
@@ -31,28 +32,31 @@ export default function Explorer () {
         {
             listeCategorie.map((oneCategorie) => {
               return (
-                <Stack
+                <Link
                   key={oneCategorie.idCategorieArticle}
-                  p={3}
-                  rounded={10}
-                  _hover={{ border: '2px', borderColor: `${params.THEME_COLOR}.500`, bg: 'white' }}
-                  cursor='pointer'
-                  transition='100ms ease-in-out'
+                  href={`/categorie/${oneCategorie.idCategorieArticle}`}
                 >
-                  <Image
-                    src={oneCategorie.imageCategorieArticle}
-                    height={150}
-                    width={150}
-                  />
-                  <Text
-                    fontWeight='bold'
-                    fontSize='sm'
-                    textAlign='center'
+                  <Stack
+                    p={3}
+                    rounded={10}
+                    _hover={{ border: '2px', borderColor: `${params.THEME_COLOR}.500`, bg: 'white' }}
+                    cursor='pointer'
+                    transition='100ms ease-in-out'
                   >
-
-                    {oneCategorie.nomCategorieArticle}
-                  </Text>
-                </Stack>
+                    <Image
+                      src={oneCategorie.imageCategorieArticle}
+                      height={150}
+                      width={150}
+                    />
+                    <Text
+                      fontWeight='bold'
+                      fontSize='sm'
+                      textAlign='center'
+                    >
+                      {oneCategorie.nomCategorieArticle}
+                    </Text>
+                  </Stack>
+                </Link>
               )
             })
           }

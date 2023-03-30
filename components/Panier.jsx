@@ -1,4 +1,4 @@
-import { Icon, Stack, HStack, Text, useBoolean, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter, Box, Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Divider, Input } from '@chakra-ui/react'
+import { Icon, Stack, HStack, Text, useBoolean, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, Box, Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Button, Divider, Input } from '@chakra-ui/react'
 import ButtonIcon from './ButtonIcon'
 import { BsArrowLeft, BsBag, BsTrash } from 'react-icons/bs'
 import params from '@/params'
@@ -8,6 +8,7 @@ import format from '@/helpers/format'
 import _ from 'lodash'
 import http from '@/helpers/http'
 import useToastCustum from '@/hooks/useToastCustum'
+import Whapi from '@avitech/whapi'
 
 export default function Panier () {
   const toast = useToastCustum()
@@ -16,6 +17,8 @@ export default function Panier () {
   const [bagContent, setBagContent] = useState([])
   const [enableInputClient, setEnableInputClient] = useBoolean()
   const [processingPayement, setProcessingPayement] = useBoolean()
+  const whapi = new Whapi()
+  whapi.setApikKey('KW42Jmzfx1wGwNyzWCms6')
   const [clientInfo, setClientInfo] = useState({
     intituleUser: '',
     contactWhatsAppContact: ''
@@ -33,40 +36,10 @@ export default function Panier () {
     setProcessingPayement.on()
     http.post('/document-vente/ecommerce', { client: clientInfo, articles: bagContent })
       .then((rps) => {
-        http.post('https://api.cbiz.avi-tech.africa/compte-whats-app/api/send-message', {
-          phones: [{ intitule: '', phone: clientInfo.contactWhatsAppContact }],
-          message: `Cher.e client *${clientInfo.intituleUser}*\nTrouvez ci-joint la proforma de votre commande.`,
-          media: {
-            mimetype: '',
-            data: '',
-            filename: ''
-          },
-          caption: '',
-          hasMedia: false,
-          hasUrlMedia: false,
-          hasFilePathMedia: false,
-          idCompte: ''
-        }, {
-          headers: {
-            apiKey: 'zphlhq9lzezh5rq'
-          }
-        })
-        http.post('https://api.cbiz.avi-tech.africa/compte-whats-app/api/send-message', {
-          phones: [{ intitule: '', phone: clientInfo.contactWhatsAppContact }],
-          message: '',
-          media: rps,
-          caption: '',
-          hasMedia: true,
-          hasUrlMedia: false,
-          hasFilePathMedia: false,
-          idCompte: ''
-        }, {
-          headers: {
-            apiKey: 'zphlhq9lzezh5rq'
-          }
-        })
-        console.log(rps)
-        // declenchePaiement()
+        toast.toastSucces('Le récapitulatif de la commande vous été envoyer')
+        if (rps.paiement.url) {
+          window.open(rps.paiement.url, '_blank')
+        }
       })
       .catch((err) => {
         toast.toastErr(err.response.data.message)

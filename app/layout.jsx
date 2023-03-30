@@ -8,11 +8,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import queryClient from '@/helpers/queryClient'
 import NavBar from '@/components/NavBar'
 import PiedDePage from '@/components/PiedDePage'
-import Banniere from '@/components/Banniere'
-
-// export const metadata = {
-//   title: 'La loupe électorale'
-// }
+// import Banniere from '@/components/Banniere'
 
 export default function RootLayout ({
   children
@@ -21,7 +17,7 @@ export default function RootLayout ({
     <html lang='fr'>
       <head>
         <title>ASHAB GROUP</title>
-        <link rel='icon' type='image/png' href='/images/logo.png' />
+        <link rel='shortcut icon' type='image/png' href='/images/icon.png' />
       </head>
       <body>
         <QueryClientProvider client={queryClient}>

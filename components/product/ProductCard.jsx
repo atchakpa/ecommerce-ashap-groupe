@@ -22,7 +22,6 @@ export default function ProductCard ({
   }
 }) {
   const toast = useToastCustum()
-  const [hover, setHover] = useBoolean()
   const [openModal, setOpenModal] = useBoolean()
   const [imageViewer, setImageViewer] = useState(product.images[0])
 
@@ -93,6 +92,8 @@ export default function ProductCard ({
                           height={35}
                           width={35}
                           rounded={5}
+                          my={[1, 3]}
+                          mx={[0, 3]}
                           cursor='pointer'
                           _hover={{ shadow: 'lg' }}
                           onClick={() => setImageViewer(oneImage)}
@@ -150,8 +151,11 @@ export default function ProductCard ({
         cursor='pointer'
         width={350}
         position='relative'
-        onMouseMove={() => setHover.on()}
-        onMouseLeave={() => setHover.off()}
+        _hover={{
+          shadow: 'lg',
+          border: '2px',
+          borderColor: 'gray.100'
+        }}
       >
         {
           product.isNew && (

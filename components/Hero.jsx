@@ -47,7 +47,7 @@ export default function Hero ({
       >
         <Box
           position='absolute'
-          bgGradient='linear(to-bl, blue.500, pink.500)'
+          bgGradient='linear(to-bl, blue.500, blue.800)'
           height='full'
           width='full'
           opacity={0.9}
